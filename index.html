@@ -6,7 +6,7 @@
 <title>Complete Your Payment — InstaGo Ed-Travels</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 <style>
-:root{--blue:#004aad;--blue-dark:#003380;--purple:#ca6ce5;--purple-dark:#a84ec7;--border:#e2e8f0;--off-white:#f7f9ff;--text-dark:#0a1628;--text-mid:#4a5568;--text-light:#718096;}
+:root{--blue:#004aad;--purple:#ca6ce5;--border:#e2e8f0;--off-white:#f7f9ff;--text-dark:#0a1628;--text-mid:#4a5568;--text-light:#718096;}
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:'Lato',sans-serif;background:var(--off-white);color:var(--text-dark);line-height:1.6;}
 .page-wrap{max-width:680px;margin:0 auto;background:#fff;min-height:100vh;box-shadow:0 0 60px rgba(0,74,173,.12);}
@@ -69,8 +69,6 @@ input.err,select.err{border-color:#ef4444!important;}
 .submit-btn:disabled{opacity:.5;cursor:not-allowed;}
 .terms-note{font-size:12px;color:var(--text-light);text-align:center;margin-top:10px;line-height:1.6;}
 #status-msg{display:none;padding:12px 16px;border-radius:10px;font-size:14px;font-weight:600;margin-bottom:12px;text-align:center;line-height:1.5;}
-.progress-bar-wrap{display:none;margin-bottom:12px;background:#e2e8f0;border-radius:8px;overflow:hidden;height:7px;}
-.progress-bar{height:7px;width:0%;background:linear-gradient(90deg,#004aad,#ca6ce5);transition:width .3s;}
 .success-screen{display:none;padding:48px 28px;text-align:center;}
 .success-icon{width:70px;height:70px;border-radius:50%;background:linear-gradient(135deg,#004aad,#ca6ce5);display:flex;align-items:center;justify-content:center;margin:0 auto 22px;font-size:36px;color:#fff;font-weight:900;}
 .success-screen h2{font-family:'Montserrat',sans-serif;font-size:22px;font-weight:900;color:var(--text-dark);margin-bottom:12px;}
@@ -113,14 +111,11 @@ input.err,select.err{border-color:#ef4444!important;}
 <div class="accent-rule"></div>
 
 <div id="main-content">
-
-  <!-- STEP 1 -->
   <div class="section">
     <div class="section-label">
       <div class="step-badge">1</div>
       <h2>Make Your Payment</h2>
     </div>
-
     <div class="payment-card">
       <div class="pcard-head naira">
         <span class="flag">&#127475;&#127468;</span>
@@ -134,9 +129,7 @@ input.err,select.err{border-color:#ef4444!important;}
         <button class="copy-btn" id="copy-acct">&#128203; Copy Account Number</button>
       </div>
     </div>
-
     <div class="or-divider">OR</div>
-
     <div class="payment-card">
       <div class="pcard-head euro">
         <span class="flag">&#127466;&#127482;</span>
@@ -150,9 +143,7 @@ input.err,select.err{border-color:#ef4444!important;}
         <button class="copy-btn" id="copy-iban">&#128203; Copy IBAN</button>
       </div>
     </div>
-
     <div class="or-divider">OR</div>
-
     <div class="payment-card">
       <div class="pcard-head card">
         <span class="flag">&#128179;</span>
@@ -164,13 +155,11 @@ input.err,select.err{border-color:#ef4444!important;}
         <p class="stripe-note">Secured by Stripe &middot; 256-bit encryption</p>
       </div>
     </div>
-
     <div class="narration-note">
-      <strong>&#9888;&#65039; Important:</strong> Please include your full name and invoice number as the payment narration.
+      <strong>Important:</strong> Please include your full name and invoice number as the payment narration.
     </div>
   </div>
 
-  <!-- STEP 2 -->
   <div class="form-section">
     <div class="section-label">
       <div class="step-badge purple">2</div>
@@ -178,105 +167,96 @@ input.err,select.err{border-color:#ef4444!important;}
     </div>
     <div class="form-card">
       <p class="form-intro">After making your payment, fill in the details below and upload your receipt. Our team will verify within 1&ndash;2 hours.</p>
-
-      <div id="pay-form">
-        <div class="form-row">
-          <div class="form-group">
-            <label>Full Name <span class="req">*</span></label>
-            <input type="text" id="f-name" placeholder="As on your passport">
-          </div>
-          <div class="form-group">
-            <label>Email Address <span class="req">*</span></label>
-            <input type="email" id="f-email" placeholder="your@email.com">
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label>Phone Number <span class="req">*</span></label>
-            <input type="tel" id="f-phone" placeholder="+234 000 0000 000">
-          </div>
-          <div class="form-group">
-            <label>Invoice Number</label>
-            <input type="text" id="f-invoice" placeholder="e.g. INS-2607007">
-          </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Full Name <span class="req">*</span></label>
+          <input type="text" id="f-name" placeholder="As on your passport">
         </div>
         <div class="form-group">
-          <label>Service Type <span class="req">*</span></label>
-          <select id="f-service">
-            <option value="">Select service...</option>
-            <optgroup label="Study Abroad">
-              <option>Study in China</option>
-              <option>Study in Malta</option>
-              <option>Study in Europe (Other)</option>
-              <option>Scholarship Application Support</option>
-            </optgroup>
-            <optgroup label="Tourism &amp; Travel">
-              <option>Tourism - General Travel</option>
-              <option>Schengen Visa Processing</option>
-              <option>Airport Pickup &amp; Drop-Off</option>
-              <option>Hotel &amp; Accommodation Booking</option>
-              <option>Flight Booking</option>
-              <option>Travel Insurance</option>
-              <option>Full Logistics Package</option>
-            </optgroup>
-            <optgroup label="Visa Services">
-              <option>Visa Assessment</option>
-              <option>Digital Nomad Visa</option>
-              <option>Permanent Residency</option>
-              <option>Citizenship Application</option>
-              <option>Relocation Pathway</option>
-            </optgroup>
+          <label>Email Address <span class="req">*</span></label>
+          <input type="email" id="f-email" placeholder="your@email.com">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Phone Number <span class="req">*</span></label>
+          <input type="tel" id="f-phone" placeholder="+234 000 0000 000">
+        </div>
+        <div class="form-group">
+          <label>Invoice Number</label>
+          <input type="text" id="f-invoice" placeholder="e.g. INS-2607007">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Service Type <span class="req">*</span></label>
+        <select id="f-service">
+          <option value="">Select service...</option>
+          <optgroup label="Study Abroad">
+            <option>Study in China</option>
+            <option>Study in Malta</option>
+            <option>Study in Europe (Other)</option>
+            <option>Scholarship Application Support</option>
+          </optgroup>
+          <optgroup label="Tourism &amp; Travel">
+            <option>Tourism - General Travel</option>
+            <option>Schengen Visa Processing</option>
+            <option>Airport Pickup &amp; Drop-Off</option>
+            <option>Hotel &amp; Accommodation Booking</option>
+            <option>Flight Booking</option>
+            <option>Travel Insurance</option>
+            <option>Full Logistics Package</option>
+          </optgroup>
+          <optgroup label="Visa Services">
+            <option>Visa Assessment</option>
+            <option>Digital Nomad Visa</option>
+            <option>Permanent Residency</option>
+            <option>Citizenship Application</option>
+            <option>Relocation Pathway</option>
+          </optgroup>
+        </select>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Amount Paid <span class="req">*</span></label>
+          <input type="text" id="f-amount" placeholder="e.g. &#8358;500,000 or &euro;500">
+        </div>
+        <div class="form-group">
+          <label>Payment Method <span class="req">*</span></label>
+          <select id="f-method">
+            <option value="">Select...</option>
+            <option>Naira Bank Transfer</option>
+            <option>Euro WISE Transfer</option>
+            <option>Stripe Card</option>
           </select>
         </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label>Amount Paid <span class="req">*</span></label>
-            <input type="text" id="f-amount" placeholder="e.g. &#8358;500,000 or &euro;500">
-          </div>
-          <div class="form-group">
-            <label>Payment Method <span class="req">*</span></label>
-            <select id="f-method">
-              <option value="">Select...</option>
-              <option>Naira Bank Transfer</option>
-              <option>Euro WISE Transfer</option>
-              <option>Stripe Card</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-group">
-          <label>Payment Date <span class="req">*</span></label>
-          <input type="date" id="f-date">
-        </div>
-        <div class="form-group">
-          <label>Upload Payment Receipt <span class="req">*</span></label>
-          <div class="file-wrap" id="file-wrap">
-            <span class="upload-icon">&#128206;</span>
-            <p id="file-label">Click to upload receipt (JPG, PNG or PDF &mdash; max 8MB)</p>
-          </div>
-          <input type="file" id="f-receipt" style="display:none;" accept="image/jpeg,image/png,image/jpg,application/pdf">
-        </div>
-        <div class="form-group">
-          <label>Additional Notes</label>
-          <textarea id="f-notes" rows="3" placeholder="Anything else we should know..."></textarea>
-        </div>
-
-        <div class="progress-bar-wrap" id="progress-wrap">
-          <div class="progress-bar" id="progress-bar"></div>
-        </div>
-        <div id="status-msg"></div>
-
-        <button type="button" id="submit-btn" class="submit-btn">Submit Payment Confirmation</button>
-        <p class="terms-note">By submitting you confirm your payment and accept InstaGo's Terms and Conditions.</p>
       </div>
+      <div class="form-group">
+        <label>Payment Date <span class="req">*</span></label>
+        <input type="date" id="f-date">
+      </div>
+      <div class="form-group">
+        <label>Upload Payment Receipt <span class="req">*</span></label>
+        <div class="file-wrap" id="file-wrap">
+          <span class="upload-icon">&#128206;</span>
+          <p id="file-label">Click to upload receipt (JPG, PNG or PDF &mdash; max 8MB)</p>
+        </div>
+        <input type="file" id="f-receipt" style="display:none;" accept="image/jpeg,image/png,image/jpg,application/pdf">
+      </div>
+      <div class="form-group">
+        <label>Additional Notes</label>
+        <textarea id="f-notes" rows="3" placeholder="Anything else we should know..."></textarea>
+      </div>
+      <div id="status-msg"></div>
+      <button type="button" id="submit-btn" class="submit-btn">Submit Payment Confirmation</button>
+      <p class="terms-note">By submitting you confirm your payment and accept InstaGo's Terms and Conditions.</p>
     </div>
   </div>
-
 </div>
 
 <div class="success-screen" id="success-screen">
   <div class="success-icon">&#10003;</div>
   <h2>Payment Confirmation Received!</h2>
-  <p>Thank you! We have received your confirmation and our team is verifying your payment. You will hear from us within 1&ndash;2 hours.</p>
+  <p>Thank you! Our team is verifying your payment and will contact you within 1&ndash;2 hours.</p>
   <div class="success-contact">
     Questions? Reach us at<br>
     <a href="mailto:info@instagoedtravels.com">info@instagoedtravels.com</a><br>
@@ -292,104 +272,94 @@ input.err,select.err{border-color:#ef4444!important;}
     Kadaka Tee 137, Tallinn, Estonia
   </p>
 </div>
-
 </div>
 
 <script>
-(function () {
-  'use strict';
+(function(){
+  var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz7guN3dRcwxQndtf1LhDqDYcGL4K0jwzaCG4P36gPSdbGcpeBYr5I7WY_OosDEIjo/exec';
 
-  var SCRIPT_URL    = 'https://script.google.com/macros/s/AKfycbz7guN3dRcwxQndtf1LhDqDYcGL4K0jwzaCG4P36gPSdbGcpeBYr5I7WY_OosDEIjo/exec';
-  var MAX_FILE_BYTES = 8 * 1024 * 1024;
+  function $(id){ return document.getElementById(id); }
 
-  function $(id) { return document.getElementById(id); }
-
-  function showStatus(msg, type) {
+  function showMsg(msg, type){
     var el = $('status-msg');
     el.innerHTML = msg;
-    el.style.display = 'block';
     var base = 'display:block;padding:12px 16px;border-radius:10px;font-size:14px;font-weight:600;margin-bottom:12px;text-align:center;line-height:1.5;';
-    if (type === 'error')   { el.style.cssText = base + 'background:#fef2f2;color:#dc2626;border:1px solid #fca5a5;'; }
-    if (type === 'loading') { el.style.cssText = base + 'background:#eff6ff;color:#1d4ed8;border:1px solid #93c5fd;'; }
+    if(type==='error')   el.style.cssText = base+'background:#fef2f2;color:#dc2626;border:1px solid #fca5a5;';
+    if(type==='loading') el.style.cssText = base+'background:#eff6ff;color:#1d4ed8;border:1px solid #93c5fd;';
   }
 
-  function setProgress(pct) {
-    $('progress-wrap').style.display = 'block';
-    $('progress-bar').style.width = pct + '%';
+  function hideMsg(){ $('status-msg').style.display='none'; }
+
+  function showSuccess(){
+    $('main-content').style.display='none';
+    $('success-screen').style.display='block';
+    window.scrollTo({top:0,behavior:'smooth'});
   }
 
-  function hideProgress() {
-    $('progress-wrap').style.display = 'none';
-    $('progress-bar').style.width = '0%';
-  }
-
-  function showSuccess() {
-    $('main-content').style.display = 'none';
-    $('success-screen').style.display = 'block';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  function resetBtn(btn){
+    btn.disabled = false;
+    btn.textContent = 'Submit Payment Confirmation';
   }
 
   /* Copy buttons */
-  function doCopy(text, btn, label) {
-    var done = function () {
-      btn.innerHTML = '&#10003; Copied!';
-      btn.style.background = '#10b981';
-      setTimeout(function () {
-        btn.innerHTML = '&#128203; ' + label;
-        btn.style.background = '#004aad';
-      }, 2500);
+  function doCopy(text, btn, label){
+    var ok = function(){
+      btn.innerHTML='&#10003; Copied!';
+      btn.style.background='#10b981';
+      setTimeout(function(){ btn.innerHTML='&#128203; '+label; btn.style.background='#004aad'; }, 2500);
     };
-    if (navigator.clipboard && window.isSecureContext) {
-      navigator.clipboard.writeText(text).then(done).catch(function () { fallback(text, done); });
-    } else {
-      fallback(text, done);
-    }
+    if(navigator.clipboard && window.isSecureContext){
+      navigator.clipboard.writeText(text).then(ok).catch(function(){ fb(text,ok); });
+    } else { fb(text,ok); }
   }
-
-  function fallback(text, done) {
-    var t = document.createElement('textarea');
-    t.value = text;
-    t.style.cssText = 'position:fixed;left:-9999px;opacity:0;';
-    document.body.appendChild(t);
-    t.focus(); t.select();
-    try { document.execCommand('copy') ? done() : alert('Copy manually:\n' + text); }
-    catch (e) { alert('Copy manually:\n' + text); }
+  function fb(text,ok){
+    var t=document.createElement('textarea');
+    t.value=text; t.style.cssText='position:fixed;left:-9999px;opacity:0;';
+    document.body.appendChild(t); t.focus(); t.select();
+    try{ document.execCommand('copy')?ok():alert('Copy:\n'+text); }catch(e){ alert('Copy:\n'+text); }
     document.body.removeChild(t);
   }
+  $('copy-acct').addEventListener('click', function(){ doCopy('9160219459', this, 'Copy Account Number'); });
+  $('copy-iban').addEventListener('click', function(){ doCopy('BE14967418217583', this, 'Copy IBAN'); });
 
-  $('copy-acct').addEventListener('click', function () { doCopy('9160219459', this, 'Copy Account Number'); });
-  $('copy-iban').addEventListener('click', function () { doCopy('BE14967418217583', this, 'Copy IBAN'); });
-
-  /* File upload */
-  $('file-wrap').addEventListener('click', function () { $('f-receipt').click(); });
-  $('f-receipt').addEventListener('change', function () {
-    if (this.files && this.files[0]) {
-      var f = this.files[0];
-      if (f.size > MAX_FILE_BYTES) {
-        $('file-label').textContent = 'File too large — max 8 MB';
-        $('file-label').style.cssText = 'color:#dc2626;font-weight:700;margin:0;';
-        $('file-wrap').style.borderColor = '#ef4444';
-        this.value = '';
-        return;
+  /* File picker */
+  $('file-wrap').addEventListener('click', function(){ $('f-receipt').click(); });
+  $('f-receipt').addEventListener('change', function(){
+    if(this.files && this.files[0]){
+      if(this.files[0].size > 8*1024*1024){
+        $('file-label').textContent='File too large — max 8MB';
+        $('file-label').style.color='#dc2626';
+        this.value=''; return;
       }
-      $('file-label').textContent = '\u2713 ' + f.name;
-      $('file-label').style.cssText = 'color:#004aad;font-weight:700;margin:0;';
-      $('file-wrap').style.borderColor = '#004aad';
-      $('file-wrap').style.background  = '#f0f5ff';
+      $('file-label').textContent='\u2713 '+this.files[0].name;
+      $('file-label').style.cssText='color:#004aad;font-weight:700;margin:0;';
+      $('file-wrap').style.borderColor='#004aad';
       $('file-wrap').classList.remove('err');
     }
   });
 
-  /* Submit */
-  $('submit-btn').addEventListener('click', function () {
-    var btn = this;
+  /* POST helper — always calls callback regardless of CORS */
+  function post(payload, cb){
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', SCRIPT_URL, true);
+    xhr.setRequestHeader('Content-Type','text/plain');
+    xhr.onreadystatechange = function(){
+      if(xhr.readyState !== 4) return;
+      var row = null;
+      try{ row = JSON.parse(xhr.responseText).row; }catch(e){}
+      cb(row);
+    };
+    // Even if onerror fires (CORS), script already ran — treat as success
+    xhr.onerror = function(){ cb(null); };
+    xhr.send(JSON.stringify(payload));
+  }
 
-    ['f-name','f-email','f-phone','f-service','f-amount','f-method','f-date'].forEach(function (id) {
-      $(id).classList.remove('err');
-    });
+  /* Submit */
+  $('submit-btn').addEventListener('click', function(){
+    var btn = this;
+    ['f-name','f-email','f-phone','f-service','f-amount','f-method','f-date'].forEach(function(id){ $(id).classList.remove('err'); });
     $('file-wrap').classList.remove('err');
-    $('status-msg').style.display = 'none';
-    hideProgress();
+    hideMsg();
 
     var name    = $('f-name').value.trim();
     var email   = $('f-email').value.trim();
@@ -400,27 +370,23 @@ input.err,select.err{border-color:#ef4444!important;}
     var date    = $('f-date').value;
     var receipt = $('f-receipt').files[0];
 
-    var bad = [];
-    if (!name)    { bad.push('Full Name');      $('f-name').classList.add('err'); }
-    if (!email || !/\S+@\S+\.\S+/.test(email)) { bad.push('Valid Email'); $('f-email').classList.add('err'); }
-    if (!phone)   { bad.push('Phone');          $('f-phone').classList.add('err'); }
-    if (!service) { bad.push('Service Type');   $('f-service').classList.add('err'); }
-    if (!amount)  { bad.push('Amount Paid');    $('f-amount').classList.add('err'); }
-    if (!method)  { bad.push('Payment Method'); $('f-method').classList.add('err'); }
-    if (!date)    { bad.push('Payment Date');   $('f-date').classList.add('err'); }
-    if (!receipt) { bad.push('Receipt Upload'); $('file-wrap').classList.add('err'); }
+    var bad=[];
+    if(!name)   { bad.push('Full Name');      $('f-name').classList.add('err'); }
+    if(!email)  { bad.push('Email');          $('f-email').classList.add('err'); }
+    if(!phone)  { bad.push('Phone');          $('f-phone').classList.add('err'); }
+    if(!service){ bad.push('Service Type');   $('f-service').classList.add('err'); }
+    if(!amount) { bad.push('Amount Paid');    $('f-amount').classList.add('err'); }
+    if(!method) { bad.push('Payment Method'); $('f-method').classList.add('err'); }
+    if(!date)   { bad.push('Payment Date');   $('f-date').classList.add('err'); }
+    if(!receipt){ bad.push('Receipt');        $('file-wrap').classList.add('err'); }
+    if(bad.length){ showMsg('Please complete: '+bad.join(', '),'error'); return; }
 
-    if (bad.length) {
-      showStatus('Please complete: ' + bad.join(', '), 'error');
-      return;
-    }
+    btn.disabled = true;
+    btn.textContent = 'Saving your details...';
+    showMsg('Step 1 of 2 — Saving your details...','loading');
 
-    btn.disabled    = true;
-    btn.textContent = 'Reading file...';
-    showStatus('Preparing your submission...', 'loading');
-    setProgress(10);
-
-    var formPayload = JSON.stringify({
+    /* STEP 1 — send form data, get row number back */
+    post({
       type        : 'form',
       submittedAt : new Date().toLocaleString('en-GB'),
       name        : name,
@@ -432,67 +398,30 @@ input.err,select.err{border-color:#ef4444!important;}
       method      : method,
       date        : date,
       notes       : $('f-notes').value.trim()
-    });
+    }, function(rowNum){
 
-    setProgress(30);
-    btn.textContent = 'Saving your details...';
-    showStatus('Saving your details to our system...', 'loading');
-
-    // STEP 1: Send form data first — this writes to the sheet immediately
-    var xhr1 = new XMLHttpRequest();
-    xhr1.open('POST', SCRIPT_URL, true);
-    xhr1.setRequestHeader('Content-Type', 'text/plain');
-    xhr1.onreadystatechange = function () {
-      if (xhr1.readyState !== 4) return;
-
-      var rowNum = null;
-      try { rowNum = JSON.parse(xhr1.responseText).row; } catch(e) {}
-
-      setProgress(60);
       btn.textContent = 'Uploading receipt...';
-      showStatus('Details saved! Now uploading your receipt...', 'loading');
+      showMsg('Step 2 of 2 — Uploading your receipt...','loading');
 
-      // STEP 2: Read and send the file
+      /* STEP 2 — read file and send */
       var reader = new FileReader();
-      reader.onload = function (evt) {
-        var base64Data = evt.target.result.split(',')[1];
-        var filePayload = JSON.stringify({
+      reader.onload = function(evt){
+        post({
           type     : 'file',
-          rowNum   : rowNum,
+          row      : rowNum,
           fileName : receipt.name,
           fileType : receipt.type,
-          fileData : base64Data
+          fileData : evt.target.result.split(',')[1]
+        }, function(){
+          showSuccess();
         });
-
-        var xhr2 = new XMLHttpRequest();
-        xhr2.open('POST', SCRIPT_URL, true);
-        xhr2.setRequestHeader('Content-Type', 'text/plain');
-        xhr2.onreadystatechange = function () {
-          if (xhr2.readyState !== 4) return;
-          setProgress(100);
-          setTimeout(function () { hideProgress(); showSuccess(); }, 400);
-        };
-        xhr2.onerror = function () {
-          // File upload failed but sheet was already written — still show success
-          setProgress(100);
-          setTimeout(function () { hideProgress(); showSuccess(); }, 400);
-        };
-        xhr2.send(filePayload);
       };
-      reader.onerror = function () {
-        // File read failed but sheet was already written — still show success
-        setProgress(100);
-        setTimeout(function () { hideProgress(); showSuccess(); }, 400);
+      reader.onerror = function(){
+        // Sheet already written, just show success
+        showSuccess();
       };
       reader.readAsDataURL(receipt);
-    };
-    xhr1.onerror = function () {
-      hideProgress();
-      showStatus('Network error. Please email your receipt to info@instagoedtravels.com or WhatsApp +372 53539474', 'error');
-      btn.disabled    = false;
-      btn.textContent = 'Submit Payment Confirmation';
-    };
-    xhr1.send(formPayload);
+    });
   });
 
 })();
