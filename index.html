@@ -64,15 +64,19 @@ input.err,select.err{border-color:#ef4444!important;}
 .file-wrap.err{border-color:#ef4444!important;}
 .upload-icon{font-size:24px;margin-bottom:4px;display:block;}
 .file-wrap p{font-size:12px;color:var(--text-light);margin:0;}
+.progress-wrap{display:none;margin-bottom:10px;}
+.progress-track{background:#e2e8f0;border-radius:20px;height:6px;overflow:hidden;}
+.progress-fill{height:6px;width:0%;background:linear-gradient(90deg,#004aad,#ca6ce5);border-radius:20px;transition:width .5s ease;}
+.progress-label{font-size:11px;color:var(--text-light);text-align:center;margin-top:5px;}
 .submit-btn{width:100%;background:linear-gradient(135deg,#a84ec7,#ca6ce5);color:#fff;border:none;padding:14px;border-radius:10px;font-family:'Montserrat',sans-serif;font-size:14px;font-weight:800;cursor:pointer;letter-spacing:.5px;box-shadow:0 4px 20px rgba(202,108,229,.4);transition:opacity .2s;margin-top:4px;}
 .submit-btn:hover{opacity:.9;}
 .submit-btn:disabled{opacity:.5;cursor:not-allowed;}
 .terms-note{font-size:11px;color:var(--text-light);text-align:center;margin-top:8px;line-height:1.6;}
 #status-msg{display:none;padding:11px 14px;border-radius:9px;font-size:13px;font-weight:600;margin-bottom:10px;text-align:center;line-height:1.5;}
 .success-screen{display:none;padding:48px 24px;text-align:center;}
-.success-icon{width:68px;height:68px;border-radius:50%;background:linear-gradient(135deg,#004aad,#ca6ce5);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:34px;color:#fff;}
+.success-icon{width:68px;height:68px;border-radius:50%;background:linear-gradient(135deg,#004aad,#ca6ce5);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:34px;color:#fff;}
 .success-screen h2{font-family:'Montserrat',sans-serif;font-size:21px;font-weight:900;color:var(--text-dark);margin-bottom:10px;}
-.success-screen p{font-size:14px;color:var(--text-mid);line-height:1.8;max-width:380px;margin:0 auto 18px;}
+.success-screen p{font-size:14px;color:var(--text-mid);line-height:1.8;max-width:380px;margin:0 auto 14px;}
 .success-contact{background:var(--off-white);border-radius:12px;padding:16px 22px;font-size:13px;color:var(--text-mid);line-height:1.9;display:inline-block;}
 .success-contact a{color:#004aad;text-decoration:none;font-weight:700;}
 .footer{background:#001f4d;padding:18px 24px;text-align:center;}
@@ -127,7 +131,7 @@ input.err,select.err{border-color:#ef4444!important;}
         <div class="drow"><span class="dlabel">Account Name</span><span class="dvalue">InstaGo Ed Travels</span></div>
         <div class="drow"><span class="dlabel">Account No.</span><span class="dvalue">9160219459</span></div>
         <div class="drow"><span class="dlabel">Exchange Rate</span><span class="dvalue">&#8358;1,750 = &euro;1 (subject to change)</span></div>
-        <button class="copy-btn" id="copy-acct">Copy Account Number</button>
+        <button type="button" class="copy-btn" id="copy-acct">Copy Account Number</button>
       </div>
     </div>
 
@@ -143,7 +147,7 @@ input.err,select.err{border-color:#ef4444!important;}
         <div class="drow"><span class="dlabel">IBAN</span><span class="dvalue">BE14 9674 1821 7583</span></div>
         <div class="drow"><span class="dlabel">BIC</span><span class="dvalue">TRWIBEB1XXX</span></div>
         <div class="drow"><span class="dlabel">Address</span><span class="dvalue">Rue du Tr&ocirc;ne 100, 3rd Floor, 1050 Brussels, Belgium</span></div>
-        <button class="copy-btn" id="copy-iban">Copy IBAN</button>
+        <button type="button" class="copy-btn" id="copy-iban">Copy IBAN</button>
       </div>
     </div>
 
@@ -162,7 +166,7 @@ input.err,select.err{border-color:#ef4444!important;}
     </div>
 
     <div class="narration-note">
-      <strong>Important:</strong> Please include your full name and invoice number as the payment narration.
+      <strong>&#9888; Important:</strong> Please include your full name and invoice number as the payment narration.
     </div>
   </div>
 
@@ -238,7 +242,7 @@ input.err,select.err{border-color:#ef4444!important;}
       </div>
       <div class="form-group">
         <label>Payment Date <span class="req">*</span></label>
-        <input type="date" id="f-date">
+        <input type="date" id="f-date" onfocus="try{this.showPicker()}catch(e){}">
       </div>
       <div class="form-group">
         <label>Upload Payment Receipt <span class="req">*</span></label>
@@ -252,6 +256,10 @@ input.err,select.err{border-color:#ef4444!important;}
         <label>Additional Notes</label>
         <textarea id="f-notes" rows="3" placeholder="Anything else we should know..."></textarea>
       </div>
+      <div class="progress-wrap" id="progress-wrap">
+        <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+        <div class="progress-label" id="progress-label"></div>
+      </div>
       <div id="status-msg"></div>
       <button type="button" id="submit-btn" class="submit-btn">Submit Payment Confirmation</button>
       <p class="terms-note">By submitting you confirm your payment and accept InstaGo's Terms and Conditions.</p>
@@ -261,8 +269,10 @@ input.err,select.err{border-color:#ef4444!important;}
 
 <div class="success-screen" id="success-screen">
   <div class="success-icon">&#10003;</div>
+  <p style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;color:#ca6ce5;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;">Your Journey Starts Here &#10024;</p>
   <h2>Payment Confirmation Received!</h2>
   <p>Thank you! Our team is verifying your payment and will contact you within 1&ndash;2 hours.</p>
+  <p style="font-size:13px;color:#ca6ce5;font-style:italic;margin-top:-6px;margin-bottom:14px;">Every great adventure begins with a single step &mdash; you just took yours.</p>
   <div class="success-contact">
     Questions? Reach us at<br>
     <a href="mailto:info@instagoedtravels.com">info@instagoedtravels.com</a><br>
@@ -285,107 +295,116 @@ input.err,select.err{border-color:#ef4444!important;}
 (function(){
   var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxf2KhMbZgn_0j89LAhvYodSqTJaFr7PqZFNyns_ubkw4FLsZ2-_2pzs4dYhEL7PHXI/exec';
 
-  function $(id){ return document.getElementById(id); }
+  function ge(id){ return document.getElementById(id); }
 
   function showMsg(msg, type){
-    var el = $('status-msg');
+    var el = ge('status-msg');
     el.innerHTML = msg;
     var base = 'display:block;padding:11px 14px;border-radius:9px;font-size:13px;font-weight:600;margin-bottom:10px;text-align:center;line-height:1.5;';
     if(type==='error')   el.style.cssText = base+'background:#fef2f2;color:#dc2626;border:1px solid #fca5a5;';
     if(type==='loading') el.style.cssText = base+'background:#eff6ff;color:#1d4ed8;border:1px solid #93c5fd;';
   }
 
-  function hideMsg(){ $('status-msg').style.display='none'; }
+  function hideMsg(){ ge('status-msg').style.display='none'; }
+
+  function setProgress(pct, label){
+    ge('progress-wrap').style.display = 'block';
+    ge('progress-fill').style.width = pct + '%';
+    ge('progress-label').textContent = label || '';
+  }
 
   function showSuccess(){
-    $('main-content').style.display='none';
-    $('success-screen').style.display='block';
+    ge('main-content').style.display = 'none';
+    ge('success-screen').style.display = 'block';
     window.scrollTo({top:0,behavior:'smooth'});
   }
 
-  /* ── Copy buttons ── */
+  /* Copy buttons */
   function doCopy(text, btn, label){
     var ok = function(){
       btn.textContent = 'Copied!';
       btn.style.background = '#10b981';
-      setTimeout(function(){ btn.textContent=label; btn.style.background='#004aad'; }, 2500);
+      setTimeout(function(){ btn.textContent = label; btn.style.background = '#004aad'; }, 2500);
     };
     if(navigator.clipboard && window.isSecureContext){
-      navigator.clipboard.writeText(text).then(ok).catch(function(){ fallback(text,ok); });
-    } else { fallback(text,ok); }
+      navigator.clipboard.writeText(text).then(ok).catch(function(){ fb(text, ok); });
+    } else { fb(text, ok); }
   }
-  function fallback(text,ok){
-    var t=document.createElement('textarea');
-    t.value=text; t.style.cssText='position:fixed;left:-9999px;opacity:0;';
+  function fb(text, ok){
+    var t = document.createElement('textarea');
+    t.value = text;
+    t.style.cssText = 'position:fixed;left:-9999px;opacity:0;';
     document.body.appendChild(t); t.focus(); t.select();
-    try{ document.execCommand('copy')?ok():alert('Copy manually:\n'+text); }catch(e){ alert('Copy manually:\n'+text); }
+    try{ document.execCommand('copy') ? ok() : alert('Copy:\n'+text); } catch(e){ alert('Copy:\n'+text); }
     document.body.removeChild(t);
   }
 
-  document.getElementById('copy-acct').onclick = function(){ doCopy('9160219459', this, 'Copy Account Number'); };
-  document.getElementById('copy-iban').onclick  = function(){ doCopy('BE14967418217583', this, 'Copy IBAN'); };
+  ge('copy-acct').onclick = function(){ doCopy('9160219459', this, 'Copy Account Number'); };
+  ge('copy-iban').onclick  = function(){ doCopy('BE14967418217583', this, 'Copy IBAN'); };
 
-  /* ── File picker ── */
-  document.getElementById('file-wrap').onclick = function(){ document.getElementById('f-receipt').click(); };
-  document.getElementById('f-receipt').onchange = function(){
+  /* File picker */
+  ge('file-wrap').onclick = function(){ ge('f-receipt').click(); };
+  ge('f-receipt').onchange = function(){
     if(this.files && this.files[0]){
       if(this.files[0].size > 8*1024*1024){
-        $('file-label').textContent='File too large — max 8MB';
-        $('file-label').style.color='#dc2626';
-        this.value=''; return;
+        ge('file-label').textContent = 'File too large — max 8MB';
+        ge('file-label').style.color = '#dc2626';
+        this.value = ''; return;
       }
-      $('file-label').textContent='\u2713 '+this.files[0].name;
-      $('file-label').style.cssText='color:#004aad;font-weight:700;margin:0;';
-      $('file-wrap').style.borderColor='#004aad';
-      $('file-wrap').classList.remove('err');
+      ge('file-label').textContent = '\u2713 ' + this.files[0].name;
+      ge('file-label').style.cssText = 'color:#004aad;font-weight:700;margin:0;';
+      ge('file-wrap').style.borderColor = '#004aad';
+      ge('file-wrap').classList.remove('err');
     }
   };
 
-  /* ── POST helper ── */
+  /* POST helper */
   function post(payload, cb){
     var xhr = new XMLHttpRequest();
     xhr.open('POST', SCRIPT_URL, true);
-    xhr.setRequestHeader('Content-Type','text/plain');
+    xhr.setRequestHeader('Content-Type', 'text/plain');
     xhr.onreadystatechange = function(){
       if(xhr.readyState !== 4) return;
       var row = null;
-      try{ row = JSON.parse(xhr.responseText).row; }catch(e){}
+      try{ row = JSON.parse(xhr.responseText).row; } catch(e){}
       cb(row);
     };
     xhr.onerror = function(){ cb(null); };
     xhr.send(JSON.stringify(payload));
   }
 
-  /* ── Submit ── */
-  document.getElementById('submit-btn').onclick = function(){
+  /* Submit */
+  ge('submit-btn').onclick = function(){
     var btn = this;
-    ['f-name','f-email','f-phone','f-service','f-amount','f-method','f-date'].forEach(function(id){ $(id).classList.remove('err'); });
-    $('file-wrap').classList.remove('err');
+    ['f-name','f-email','f-phone','f-service','f-amount','f-method','f-date'].forEach(function(id){
+      ge(id).classList.remove('err');
+    });
+    ge('file-wrap').classList.remove('err');
     hideMsg();
 
-    var name    = $('f-name').value.trim();
-    var email   = $('f-email').value.trim();
-    var phone   = $('f-phone').value.trim();
-    var service = $('f-service').value;
-    var amount  = $('f-amount').value.trim();
-    var method  = $('f-method').value;
-    var date    = $('f-date').value;
-    var receipt = $('f-receipt').files[0];
+    var name    = ge('f-name').value.trim();
+    var email   = ge('f-email').value.trim();
+    var phone   = ge('f-phone').value.trim();
+    var service = ge('f-service').value;
+    var amount  = ge('f-amount').value.trim();
+    var method  = ge('f-method').value;
+    var date    = ge('f-date').value;
+    var receipt = ge('f-receipt').files[0];
 
-    var bad=[];
-    if(!name)   { bad.push('Full Name');      $('f-name').classList.add('err'); }
-    if(!email)  { bad.push('Email');          $('f-email').classList.add('err'); }
-    if(!phone)  { bad.push('Phone');          $('f-phone').classList.add('err'); }
-    if(!service){ bad.push('Service Type');   $('f-service').classList.add('err'); }
-    if(!amount) { bad.push('Amount Paid');    $('f-amount').classList.add('err'); }
-    if(!method) { bad.push('Payment Method'); $('f-method').classList.add('err'); }
-    if(!date)   { bad.push('Payment Date');   $('f-date').classList.add('err'); }
-    if(!receipt){ bad.push('Receipt');        $('file-wrap').classList.add('err'); }
-    if(bad.length){ showMsg('Please complete: '+bad.join(', '),'error'); return; }
+    var bad = [];
+    if(!name)    { bad.push('Full Name');      ge('f-name').classList.add('err'); }
+    if(!email)   { bad.push('Email');          ge('f-email').classList.add('err'); }
+    if(!phone)   { bad.push('Phone');          ge('f-phone').classList.add('err'); }
+    if(!service) { bad.push('Service Type');   ge('f-service').classList.add('err'); }
+    if(!amount)  { bad.push('Amount Paid');    ge('f-amount').classList.add('err'); }
+    if(!method)  { bad.push('Payment Method'); ge('f-method').classList.add('err'); }
+    if(!date)    { bad.push('Payment Date');   ge('f-date').classList.add('err'); }
+    if(!receipt) { bad.push('Receipt');        ge('file-wrap').classList.add('err'); }
+    if(bad.length){ showMsg('Please complete: '+bad.join(', '), 'error'); return; }
 
     btn.disabled = true;
-    btn.textContent = 'Saving your details...';
-    showMsg('Step 1 of 2 — Saving your details...','loading');
+    btn.textContent = 'Please wait...';
+    setProgress(10, 'Adding your info to our database...');
 
     post({
       type        : 'form',
@@ -393,17 +412,14 @@ input.err,select.err{border-color:#ef4444!important;}
       name        : name,
       email       : email,
       phone       : phone,
-      invoice     : $('f-invoice').value.trim(),
+      invoice     : ge('f-invoice').value.trim(),
       service     : service,
       amount      : amount,
       method      : method,
       date        : date,
-      notes       : $('f-notes').value.trim()
+      notes       : ge('f-notes').value.trim()
     }, function(rowNum){
-
-      btn.textContent = 'Uploading receipt...';
-      showMsg('Step 2 of 2 — Uploading your receipt...','loading');
-
+      setProgress(55, 'Uploading your receipt...');
       var reader = new FileReader();
       reader.onload = function(evt){
         post({
@@ -413,7 +429,8 @@ input.err,select.err{border-color:#ef4444!important;}
           fileType : receipt.type,
           fileData : evt.target.result.split(',')[1]
         }, function(){
-          showSuccess();
+          setProgress(100, 'Done!');
+          setTimeout(function(){ showSuccess(); }, 600);
         });
       };
       reader.onerror = function(){ showSuccess(); };
@@ -421,10 +438,6 @@ input.err,select.err{border-color:#ef4444!important;}
     });
   };
 
-})();
-</script>
-</body>
-</html>
 })();
 </script>
 </body>
