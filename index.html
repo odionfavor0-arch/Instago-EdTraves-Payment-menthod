@@ -131,7 +131,7 @@ input.err,select.err{border-color:#ef4444!important;}
         <div class="drow"><span class="dlabel">Account Name</span><span class="dvalue">InstaGo Ed Travels</span></div>
         <div class="drow"><span class="dlabel">Account No.</span><span class="dvalue">9160219459</span></div>
         <div class="drow"><span class="dlabel">Exchange Rate</span><span class="dvalue">&#8358;1,750 = &euro;1 (subject to change)</span></div>
-        <button type="button" class="copy-btn" id="copy-acct">Copy Account Number</button>
+        <button type="button" class="copy-btn" id="btn-acct">Copy Account Number</button>
       </div>
     </div>
 
@@ -147,7 +147,7 @@ input.err,select.err{border-color:#ef4444!important;}
         <div class="drow"><span class="dlabel">IBAN</span><span class="dvalue">BE14 9674 1821 7583</span></div>
         <div class="drow"><span class="dlabel">BIC</span><span class="dvalue">TRWIBEB1XXX</span></div>
         <div class="drow"><span class="dlabel">Address</span><span class="dvalue">Rue du Tr&ocirc;ne 100, 3rd Floor, 1050 Brussels, Belgium</span></div>
-        <button type="button" class="copy-btn" id="copy-iban">Copy IBAN</button>
+        <button type="button" class="copy-btn" id="btn-iban">Copy IBAN</button>
       </div>
     </div>
 
@@ -160,7 +160,7 @@ input.err,select.err{border-color:#ef4444!important;}
       </div>
       <div class="pcard-body">
         <p style="font-size:13px;color:#4a5568;margin-bottom:12px;">Pay securely online using any debit or credit card.</p>
-        <a href="https://buy.stripe.com/fZe9Bm2eB0JE3a87sE" class="stripe-btn" target="_blank">Pay Securely with Card &rarr;</a>
+        <a href="https://buy.stripe.com/fZe9Bm2eB0JE3a87sE" class="stripe-btn" target="_blank" rel="noopener">Pay Securely with Card &rarr;</a>
         <p class="stripe-note">Secured by Stripe &middot; 256-bit encryption</p>
       </div>
     </div>
@@ -261,7 +261,7 @@ input.err,select.err{border-color:#ef4444!important;}
         <div class="progress-label" id="progress-label"></div>
       </div>
       <div id="status-msg"></div>
-      <button type="button" id="submit-btn" class="submit-btn">Submit Payment Confirmation</button>
+      <button type="button" class="submit-btn" id="btn-submit">Submit Payment Confirmation</button>
       <p class="terms-note">By submitting you confirm your payment and accept InstaGo's Terms and Conditions.</p>
     </div>
   </div>
@@ -271,11 +271,11 @@ input.err,select.err{border-color:#ef4444!important;}
   <div class="success-icon">&#10003;</div>
   <p style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;color:#ca6ce5;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;">Your Journey Starts Here &#10024;</p>
   <h2>Payment Confirmation Received!</h2>
-  <p>Thank you! Our team is verifying your payment and will contact you within 1&ndash;2 hours.</p>
-  <p style="font-size:13px;color:#ca6ce5;font-style:italic;margin-top:-6px;margin-bottom:14px;">Every great adventure begins with a single step &mdash; you just took yours.</p>
+  <p>Thank you! Our team is verifying your payment and will be in touch with you soon.</p>
+  <p style="font-size:13px;color:#ca6ce5;font-style:italic;margin-top:-6px;margin-bottom:14px;">Every great adventure begins with a single step, you just took yours.</p>
   <div class="success-contact">
     Questions? Reach us at<br>
-    <a href="mailto:info@instagoedtravels.com">info@instagoedtravels.com</a><br>
+    <a href="mailto:info@instagoedtravels.com">info&#64;instagoedtravels.com</a><br>
     +372 53539474
   </div>
 </div>
@@ -283,8 +283,8 @@ input.err,select.err{border-color:#ef4444!important;}
 <div class="footer">
   <div class="footer-brand">Insta<span>Go</span></div>
   <p>
-    <a href="https://instagoedtravels.com">instagoedtravels.com</a> &middot;
-    info@instagoedtravels.com &middot; +372 53539474<br>
+    instagoedtravels.com &middot;
+    info&#64;instagoedtravels.com &middot; +372 53539474<br>
     Kadaka Tee 137, Tallinn, Estonia
   </p>
 </div>
@@ -292,7 +292,7 @@ input.err,select.err{border-color:#ef4444!important;}
 </div>
 
 <script>
-(function(){
+window.addEventListener('DOMContentLoaded', function() {
   var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxf2KhMbZgn_0j89LAhvYodSqTJaFr7PqZFNyns_ubkw4FLsZ2-_2pzs4dYhEL7PHXI/exec';
 
   function ge(id){ return document.getElementById(id); }
@@ -319,7 +319,6 @@ input.err,select.err{border-color:#ef4444!important;}
     window.scrollTo({top:0,behavior:'smooth'});
   }
 
-  /* Copy buttons */
   function doCopy(text, btn, label){
     var ok = function(){
       btn.textContent = 'Copied!';
@@ -327,9 +326,10 @@ input.err,select.err{border-color:#ef4444!important;}
       setTimeout(function(){ btn.textContent = label; btn.style.background = '#004aad'; }, 2500);
     };
     if(navigator.clipboard && window.isSecureContext){
-      navigator.clipboard.writeText(text).then(ok).catch(function(){ fb(text, ok); });
-    } else { fb(text, ok); }
+      navigator.clipboard.writeText(text).then(ok).catch(function(){ fb(text,ok); });
+    } else { fb(text,ok); }
   }
+
   function fb(text, ok){
     var t = document.createElement('textarea');
     t.value = text;
@@ -339,10 +339,9 @@ input.err,select.err{border-color:#ef4444!important;}
     document.body.removeChild(t);
   }
 
-  ge('copy-acct').onclick = function(){ doCopy('9160219459', this, 'Copy Account Number'); };
-  ge('copy-iban').onclick  = function(){ doCopy('BE14967418217583', this, 'Copy IBAN'); };
+  ge('btn-acct').onclick = function(){ doCopy('9160219459', this, 'Copy Account Number'); };
+  ge('btn-iban').onclick  = function(){ doCopy('BE14967418217583', this, 'Copy IBAN'); };
 
-  /* File picker */
   ge('file-wrap').onclick = function(){ ge('f-receipt').click(); };
   ge('f-receipt').onchange = function(){
     if(this.files && this.files[0]){
@@ -358,11 +357,10 @@ input.err,select.err{border-color:#ef4444!important;}
     }
   };
 
-  /* POST helper */
   function post(payload, cb){
     var xhr = new XMLHttpRequest();
     xhr.open('POST', SCRIPT_URL, true);
-    xhr.setRequestHeader('Content-Type', 'text/plain');
+    xhr.setRequestHeader('Content-Type','text/plain');
     xhr.onreadystatechange = function(){
       if(xhr.readyState !== 4) return;
       var row = null;
@@ -373,8 +371,7 @@ input.err,select.err{border-color:#ef4444!important;}
     xhr.send(JSON.stringify(payload));
   }
 
-  /* Submit */
-  ge('submit-btn').onclick = function(){
+  ge('btn-submit').onclick = function(){
     var btn = this;
     ['f-name','f-email','f-phone','f-service','f-amount','f-method','f-date'].forEach(function(id){
       ge(id).classList.remove('err');
@@ -400,7 +397,7 @@ input.err,select.err{border-color:#ef4444!important;}
     if(!method)  { bad.push('Payment Method'); ge('f-method').classList.add('err'); }
     if(!date)    { bad.push('Payment Date');   ge('f-date').classList.add('err'); }
     if(!receipt) { bad.push('Receipt');        ge('file-wrap').classList.add('err'); }
-    if(bad.length){ showMsg('Please complete: '+bad.join(', '), 'error'); return; }
+    if(bad.length){ showMsg('Please complete: '+bad.join(', '),'error'); return; }
 
     btn.disabled = true;
     btn.textContent = 'Please wait...';
@@ -437,8 +434,7 @@ input.err,select.err{border-color:#ef4444!important;}
       reader.readAsDataURL(receipt);
     });
   };
-
-})();
+});
 </script>
 </body>
 </html>
