@@ -58,12 +58,16 @@ label{display:block;margin-bottom:4px;font-weight:700;font-size:12px;color:var(-
 .req{color:#ca6ce5;}
 input,select,textarea{width:100%;padding:9px 11px;border:1.5px solid var(--border);border-radius:7px;font-size:13px;font-family:'Lato',sans-serif;color:var(--text-dark);background:#fff;transition:border-color .2s,box-shadow .2s;-webkit-appearance:none;appearance:none;}
 input:focus,select:focus,textarea:focus{outline:none;border-color:#004aad;box-shadow:0 0 0 3px rgba(0,74,173,.1);}
-input.err,select.err{border-color:#ef4444!important;}
+input.err,select.err,#amount-wrap.err{border-color:#ef4444!important;}
 .file-wrap{border:2px dashed var(--border);border-radius:8px;padding:16px;text-align:center;cursor:pointer;transition:border-color .2s,background .2s;background:#fff;}
 .file-wrap:hover{border-color:#004aad;background:#f0f5ff;}
 .file-wrap.err{border-color:#ef4444!important;}
 .upload-icon{font-size:24px;margin-bottom:4px;display:block;}
 .file-wrap p{font-size:12px;color:var(--text-light);margin:0;}
+#amount-wrap{display:flex;border:1.5px solid var(--border);border-radius:7px;overflow:hidden;background:#fff;transition:border-color .2s,box-shadow .2s;}
+#amount-wrap:focus-within{border-color:#004aad;box-shadow:0 0 0 3px rgba(0,74,173,.1);}
+#f-currency{border:none;border-right:1.5px solid var(--border);border-radius:0;padding:9px 6px;font-size:12px;font-family:'Lato',sans-serif;color:var(--text-dark);background:#f7f9ff;width:105px;flex-shrink:0;-webkit-appearance:none;appearance:none;cursor:pointer;font-weight:700;box-shadow:none;}
+#f-amount-num{border:none;border-radius:0;flex:1;padding:9px 11px;font-size:13px;font-family:'Lato',sans-serif;color:var(--text-dark);background:#fff;outline:none;width:100%;}
 .progress-wrap{display:none;margin-bottom:10px;}
 .progress-track{background:#e2e8f0;border-radius:20px;height:6px;overflow:hidden;}
 .progress-fill{height:6px;width:0%;background:linear-gradient(90deg,#004aad,#ca6ce5);border-radius:20px;transition:width .5s ease;}
@@ -228,7 +232,51 @@ input.err,select.err{border-color:#ef4444!important;}
       <div class="form-row">
         <div class="form-group">
           <label>Amount Paid <span class="req">*</span></label>
-          <input type="text" id="f-amount" placeholder="e.g. &#8358;500,000 or &euro;500">
+          <div id="amount-wrap">
+            <select id="f-currency">
+              <option value="NGN">NGN &#8358;</option>
+              <option value="EUR">EUR &euro;</option>
+              <option value="GBP">GBP &pound;</option>
+              <option value="USD">USD $</option>
+              <option value="GHS">GHS &#8373;</option>
+              <option value="TZS">TZS</option>
+              <option value="KES">KES</option>
+              <option value="ZAR">ZAR R</option>
+              <option value="UGX">UGX</option>
+              <option value="ETB">ETB</option>
+              <option value="XOF">XOF</option>
+              <option value="XAF">XAF</option>
+              <option value="MAD">MAD</option>
+              <option value="EGP">EGP</option>
+              <option value="CAD">CAD $</option>
+              <option value="AUD">AUD $</option>
+              <option value="CHF">CHF</option>
+              <option value="SEK">SEK</option>
+              <option value="NOK">NOK</option>
+              <option value="DKK">DKK</option>
+              <option value="AED">AED</option>
+              <option value="SAR">SAR</option>
+              <option value="QAR">QAR</option>
+              <option value="CNY">CNY &yen;</option>
+              <option value="JPY">JPY &yen;</option>
+              <option value="INR">INR &#8377;</option>
+              <option value="BRL">BRL R$</option>
+              <option value="MXN">MXN $</option>
+              <option value="SGD">SGD $</option>
+              <option value="MYR">MYR</option>
+              <option value="TRY">TRY &#8378;</option>
+              <option value="PLN">PLN z&#322;</option>
+              <option value="CZK">CZK</option>
+              <option value="HUF">HUF</option>
+              <option value="RUB">RUB &#8381;</option>
+              <option value="PKR">PKR &#8360;</option>
+              <option value="BDT">BDT</option>
+              <option value="PHP">PHP &#8369;</option>
+              <option value="IDR">IDR Rp</option>
+              <option value="THB">THB &#3647;</option>
+            </select>
+            <input type="number" id="f-amount-num" placeholder="0.00" min="0" step="any">
+          </div>
         </div>
         <div class="form-group">
           <label>Payment Method <span class="req">*</span></label>
@@ -308,100 +356,100 @@ window.addEventListener('DOMContentLoaded', function() {
   function hideMsg(){ ge('status-msg').style.display='none'; }
 
   function setProgress(pct, label){
-    ge('progress-wrap').style.display = 'block';
-    ge('progress-fill').style.width = pct + '%';
-    ge('progress-label').textContent = label || '';
+    ge('progress-wrap').style.display='block';
+    ge('progress-fill').style.width=pct+'%';
+    ge('progress-label').textContent=label||'';
   }
 
   function showSuccess(){
-    ge('main-content').style.display = 'none';
-    ge('success-screen').style.display = 'block';
+    ge('main-content').style.display='none';
+    ge('success-screen').style.display='block';
     window.scrollTo({top:0,behavior:'smooth'});
   }
 
   function doCopy(text, btn, label){
-    var ok = function(){
-      btn.textContent = 'Copied!';
-      btn.style.background = '#10b981';
-      setTimeout(function(){ btn.textContent = label; btn.style.background = '#004aad'; }, 2500);
+    var ok=function(){
+      btn.textContent='Copied!';
+      btn.style.background='#10b981';
+      setTimeout(function(){ btn.textContent=label; btn.style.background='#004aad'; },2500);
     };
     if(navigator.clipboard && window.isSecureContext){
       navigator.clipboard.writeText(text).then(ok).catch(function(){ fb(text,ok); });
     } else { fb(text,ok); }
   }
 
-  function fb(text, ok){
-    var t = document.createElement('textarea');
-    t.value = text;
-    t.style.cssText = 'position:fixed;left:-9999px;opacity:0;';
+  function fb(text,ok){
+    var t=document.createElement('textarea');
+    t.value=text; t.style.cssText='position:fixed;left:-9999px;opacity:0;';
     document.body.appendChild(t); t.focus(); t.select();
-    try{ document.execCommand('copy') ? ok() : alert('Copy:\n'+text); } catch(e){ alert('Copy:\n'+text); }
+    try{ document.execCommand('copy')?ok():alert('Copy:\n'+text); }catch(e){ alert('Copy:\n'+text); }
     document.body.removeChild(t);
   }
 
-  ge('btn-acct').onclick = function(){ doCopy('9160219459', this, 'Copy Account Number'); };
-  ge('btn-iban').onclick  = function(){ doCopy('BE14967418217583', this, 'Copy IBAN'); };
+  ge('btn-acct').onclick=function(){ doCopy('9160219459',this,'Copy Account Number'); };
+  ge('btn-iban').onclick=function(){ doCopy('BE14967418217583',this,'Copy IBAN'); };
 
-  ge('file-wrap').onclick = function(){ ge('f-receipt').click(); };
-  ge('f-receipt').onchange = function(){
+  ge('file-wrap').onclick=function(){ ge('f-receipt').click(); };
+  ge('f-receipt').onchange=function(){
     if(this.files && this.files[0]){
-      if(this.files[0].size > 8*1024*1024){
-        ge('file-label').textContent = 'File too large — max 8MB';
-        ge('file-label').style.color = '#dc2626';
-        this.value = ''; return;
+      if(this.files[0].size>8*1024*1024){
+        ge('file-label').textContent='File too large — max 8MB';
+        ge('file-label').style.color='#dc2626';
+        this.value=''; return;
       }
-      ge('file-label').textContent = '\u2713 ' + this.files[0].name;
-      ge('file-label').style.cssText = 'color:#004aad;font-weight:700;margin:0;';
-      ge('file-wrap').style.borderColor = '#004aad';
+      ge('file-label').textContent='\u2713 '+this.files[0].name;
+      ge('file-label').style.cssText='color:#004aad;font-weight:700;margin:0;';
+      ge('file-wrap').style.borderColor='#004aad';
       ge('file-wrap').classList.remove('err');
     }
   };
 
-  function post(payload, cb){
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', SCRIPT_URL, true);
+  function post(payload,cb){
+    var xhr=new XMLHttpRequest();
+    xhr.open('POST',SCRIPT_URL,true);
     xhr.setRequestHeader('Content-Type','text/plain');
-    xhr.onreadystatechange = function(){
-      if(xhr.readyState !== 4) return;
-      var row = null;
-      try{ row = JSON.parse(xhr.responseText).row; } catch(e){}
+    xhr.onreadystatechange=function(){
+      if(xhr.readyState!==4) return;
+      var row=null;
+      try{ row=JSON.parse(xhr.responseText).row; }catch(e){}
       cb(row);
     };
-    xhr.onerror = function(){ cb(null); };
+    xhr.onerror=function(){ cb(null); };
     xhr.send(JSON.stringify(payload));
   }
 
-  ge('btn-submit').onclick = function(){
-    var btn = this;
-    ['f-name','f-email','f-phone','f-service','f-amount','f-method','f-date'].forEach(function(id){
-      ge(id).classList.remove('err');
-    });
+  ge('btn-submit').onclick=function(){
+    var btn=this;
+    ['f-name','f-email','f-phone','f-service','f-method','f-date'].forEach(function(id){ ge(id).classList.remove('err'); });
     ge('file-wrap').classList.remove('err');
+    ge('amount-wrap').classList.remove('err');
     hideMsg();
 
-    var name    = ge('f-name').value.trim();
-    var email   = ge('f-email').value.trim();
-    var phone   = ge('f-phone').value.trim();
-    var service = ge('f-service').value;
-    var amount  = ge('f-amount').value.trim();
-    var method  = ge('f-method').value;
-    var date    = ge('f-date').value;
-    var receipt = ge('f-receipt').files[0];
+    var name     = ge('f-name').value.trim();
+    var email    = ge('f-email').value.trim();
+    var phone    = ge('f-phone').value.trim();
+    var service  = ge('f-service').value;
+    var amtNum   = ge('f-amount-num').value.trim();
+    var currency = ge('f-currency').value;
+    var method   = ge('f-method').value;
+    var date     = ge('f-date').value;
+    var receipt  = ge('f-receipt').files[0];
+    var amount   = amtNum ? currency+' '+amtNum : '';
 
-    var bad = [];
+    var bad=[];
     if(!name)    { bad.push('Full Name');      ge('f-name').classList.add('err'); }
     if(!email)   { bad.push('Email');          ge('f-email').classList.add('err'); }
     if(!phone)   { bad.push('Phone');          ge('f-phone').classList.add('err'); }
     if(!service) { bad.push('Service Type');   ge('f-service').classList.add('err'); }
-    if(!amount)  { bad.push('Amount Paid');    ge('f-amount').classList.add('err'); }
+    if(!amtNum)  { bad.push('Amount Paid');    ge('amount-wrap').classList.add('err'); }
     if(!method)  { bad.push('Payment Method'); ge('f-method').classList.add('err'); }
     if(!date)    { bad.push('Payment Date');   ge('f-date').classList.add('err'); }
     if(!receipt) { bad.push('Receipt');        ge('file-wrap').classList.add('err'); }
     if(bad.length){ showMsg('Please complete: '+bad.join(', '),'error'); return; }
 
-    btn.disabled = true;
-    btn.textContent = 'Please wait...';
-    setProgress(10, 'Adding your info to our database...');
+    btn.disabled=true;
+    btn.textContent='Please wait...';
+    setProgress(10,'Adding your info to our database...');
 
     post({
       type        : 'form',
@@ -416,9 +464,9 @@ window.addEventListener('DOMContentLoaded', function() {
       date        : date,
       notes       : ge('f-notes').value.trim()
     }, function(rowNum){
-      setProgress(55, 'Uploading your receipt...');
-      var reader = new FileReader();
-      reader.onload = function(evt){
+      setProgress(55,'Uploading your receipt...');
+      var reader=new FileReader();
+      reader.onload=function(evt){
         post({
           type     : 'file',
           row      : rowNum,
@@ -426,11 +474,11 @@ window.addEventListener('DOMContentLoaded', function() {
           fileType : receipt.type,
           fileData : evt.target.result.split(',')[1]
         }, function(){
-          setProgress(100, 'Done!');
-          setTimeout(function(){ showSuccess(); }, 600);
+          setProgress(100,'Done!');
+          setTimeout(function(){ showSuccess(); },600);
         });
       };
-      reader.onerror = function(){ showSuccess(); };
+      reader.onerror=function(){ showSuccess(); };
       reader.readAsDataURL(receipt);
     });
   };
