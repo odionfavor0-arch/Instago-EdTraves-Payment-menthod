@@ -325,10 +325,10 @@ input.err,select.err{border-color:#ef4444!important;}
   <p style="font-size:13px;color:#ca6ce5;font-style:italic;margin-top:-6px;margin-bottom:14px;">Every great adventure begins with a single step, you just took yours.</p>
   <div class="success-contact">
     Questions? Reach us at<br>
-    <a id="contact-email" href="#" style="color:#004aad;text-decoration:none;font-weight:700;"></a><br>
+    <span class="em-fix" data-u="info" data-d="instagoedtravels.com" style="color:#004aad;font-weight:700;cursor:pointer;"></span><br>
     +372 53539474
   </div>
-  <script>var e='info'+'@'+'instagoedtravels.com';var a=document.getElementById('contact-email');a.href='mailto:'+e;a.textContent=e;</script>
+  <script>var el=document.querySelector('.em-fix');var addr=el.getAttribute('data-u')+'\u0040'+el.getAttribute('data-d');el.textContent=addr;el.onclick=function(){location.href='mailto:'+addr;};</script>
 </div>
 <div class="footer">
   <div class="footer-brand">Insta<span>Go</span></div>
