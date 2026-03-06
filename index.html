@@ -5,6 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Complete Your Payment — InstaGo Ed-Travels</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<script>
+var IG_URL='https://script.google.com/macros/s/AKfycbxf2KhMbZgn_0j89LAhvYodSqTJaFr7PqZFNyns_ubkw4FLsZ2-_2pzs4dYhEL7PHXI/exec';
+window.igCopy=function(btn,text,label){var ok=function(){btn.textContent='Copied!';btn.style.background='#10b981';setTimeout(function(){btn.textContent=label;btn.style.background='#004aad';},2500);};if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(text).then(ok).catch(function(){igFb(text,ok);});}else{igFb(text,ok);}};
+window.igFb=function(text,ok){var t=document.createElement('textarea');t.value=text;t.style.cssText='position:fixed;left:-9999px;opacity:0;';document.body.appendChild(t);t.focus();t.select();try{document.execCommand('copy')?ok():alert('Copy:\n'+text);}catch(e){alert('Copy:\n'+text);}document.body.removeChild(t);};
+window.igFileChange=function(inp){if(inp.files&&inp.files[0]){if(inp.files[0].size>8*1024*1024){document.getElementById('file-label').textContent='File too large - max 8MB';document.getElementById('file-label').style.color='#dc2626';inp.value='';return;}document.getElementById('file-label').textContent='\u2713 '+inp.files[0].name;document.getElementById('file-label').style.cssText='color:#004aad;font-weight:700;margin:0;';document.getElementById('file-wrap').style.borderColor='#004aad';document.getElementById('file-wrap').classList.remove('err');}};
+window.igMsg=function(msg,type){var el=document.getElementById('status-msg');el.innerHTML=msg;var b='display:block;padding:11px 14px;border-radius:9px;font-size:13px;font-weight:600;margin-bottom:10px;text-align:center;line-height:1.5;';if(type==='error')el.style.cssText=b+'background:#fef2f2;color:#dc2626;border:1px solid #fca5a5;';if(type==='loading')el.style.cssText=b+'background:#eff6ff;color:#1d4ed8;border:1px solid #93c5fd;';};
+window.igProg=function(pct,label){document.getElementById('progress-wrap').style.display='block';document.getElementById('progress-fill').style.width=pct+'%';document.getElementById('progress-label').textContent=label||'';};
+window.igDone=function(){document.getElementById('main-content').style.display='none';document.getElementById('success-screen').style.display='block';window.scrollTo({top:0,behavior:'smooth'});};
+window.igPost=function(data,cb){var x=new XMLHttpRequest();x.open('POST',IG_URL,true);x.setRequestHeader('Content-Type','text/plain');x.onreadystatechange=function(){if(x.readyState!==4)return;var r=null;try{r=JSON.parse(x.responseText).row;}catch(e){}cb(r);};x.onerror=function(){cb(null);};x.send(JSON.stringify(data));};
+window.igSubmit=function(){var btn=document.getElementById('btn-submit');['f-name','f-email','f-phone','f-service','f-method','f-date'].forEach(function(id){document.getElementById(id).classList.remove('err');});document.getElementById('file-wrap').classList.remove('err');document.getElementById('amount-wrap').classList.remove('err');document.getElementById('status-msg').style.display='none';var name=document.getElementById('f-name').value.trim();var email=document.getElementById('f-email').value.trim();var phone=document.getElementById('f-phone').value.trim();var service=document.getElementById('f-service').value;var amtNum=document.getElementById('f-amount-num').value.trim();var currency=document.getElementById('f-currency').value;var method=document.getElementById('f-method').value;var date=document.getElementById('f-date').value;var receipt=document.getElementById('f-receipt').files[0];var amount=amtNum?currency+' '+amtNum:'';var bad=[];if(!name){bad.push('Full Name');document.getElementById('f-name').classList.add('err');}if(!email){bad.push('Email');document.getElementById('f-email').classList.add('err');}if(!phone){bad.push('Phone');document.getElementById('f-phone').classList.add('err');}if(!service){bad.push('Service Type');document.getElementById('f-service').classList.add('err');}if(!amtNum){bad.push('Amount Paid');document.getElementById('amount-wrap').classList.add('err');}if(!method){bad.push('Payment Method');document.getElementById('f-method').classList.add('err');}if(!date){bad.push('Payment Date');document.getElementById('f-date').classList.add('err');}if(!receipt){bad.push('Receipt');document.getElementById('file-wrap').classList.add('err');}if(bad.length){igMsg('Please complete: '+bad.join(', '),'error');return;}btn.disabled=true;btn.textContent='Please wait...';igProg(10,'Adding your info to our database...');igPost({type:'form',submittedAt:new Date().toLocaleString('en-GB'),name:name,email:email,phone:phone,invoice:document.getElementById('f-invoice').value.trim(),service:service,amount:amount,method:method,date:date,notes:document.getElementById('f-notes').value.trim()},function(rowNum){igProg(55,'Uploading your receipt...');var reader=new FileReader();reader.onload=function(evt){igPost({type:'file',row:rowNum,fileName:receipt.name,fileType:receipt.type,fileData:evt.target.result.split(',')[1]},function(){igProg(100,'Done!');setTimeout(function(){igDone();},600);});};reader.onerror=function(){igDone();};reader.readAsDataURL(receipt);});};
+</script>
 <style>
 :root{--blue:#004aad;--purple:#ca6ce5;--border:#e2e8f0;--off-white:#f7f9ff;--text-dark:#0a1628;--text-mid:#4a5568;--text-light:#718096;}
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -133,7 +144,7 @@ input.err,select.err{border-color:#ef4444!important;}
         <div class="drow"><span class="dlabel">Account Name</span><span class="dvalue">InstaGo Ed Travels</span></div>
         <div class="drow"><span class="dlabel">Account No.</span><span class="dvalue">9160219459</span></div>
         <div class="drow"><span class="dlabel">Exchange Rate</span><span class="dvalue">&#8358;1,750 = &euro;1 (subject to change)</span></div>
-        <button type="button" class="copy-btn" onclick="igCopy(this,'9160219459','Copy Account Number')">Copy Account Number</button>
+        <button type="button" class="copy-btn" onclick="window.igCopy(this,'9160219459','Copy Account Number')">Copy Account Number</button>
       </div>
     </div>
     <div class="or-divider">OR</div>
@@ -147,7 +158,7 @@ input.err,select.err{border-color:#ef4444!important;}
         <div class="drow"><span class="dlabel">IBAN</span><span class="dvalue">BE14 9674 1821 7583</span></div>
         <div class="drow"><span class="dlabel">BIC</span><span class="dvalue">TRWIBEB1XXX</span></div>
         <div class="drow"><span class="dlabel">Address</span><span class="dvalue">Rue du Tr&ocirc;ne 100, 3rd Floor, 1050 Brussels, Belgium</span></div>
-        <button type="button" class="copy-btn" onclick="igCopy(this,'BE14967418217583','Copy IBAN')">Copy IBAN</button>
+        <button type="button" class="copy-btn" onclick="window.igCopy(this,'BE14967418217583','Copy IBAN')">Copy IBAN</button>
       </div>
     </div>
     <div class="or-divider">OR</div>
@@ -172,7 +183,7 @@ input.err,select.err{border-color:#ef4444!important;}
       <h2>Confirm Your Payment</h2>
     </div>
     <div class="form-card">
-      <p class="form-intro">After making your payment, fill in the details below and upload your receipt. Our team will verify within 1&ndash;2 hours.</p>
+      <p class="form-intro">After making your payment, fill in the details below and upload your receipt. Our team will be in touch with you soon.</p>
       <div class="form-row">
         <div class="form-group">
           <label>Full Name <span class="req">*</span></label>
@@ -290,7 +301,7 @@ input.err,select.err{border-color:#ef4444!important;}
           <span class="upload-icon">&#128206;</span>
           <p id="file-label">Click to upload receipt (JPG, PNG or PDF &mdash; max 8MB)</p>
         </div>
-        <input type="file" id="f-receipt" style="display:none;" accept="image/jpeg,image/png,image/jpg,application/pdf" onchange="igFileChange(this)">
+        <input type="file" id="f-receipt" style="display:none;" accept="image/jpeg,image/png,image/jpg,application/pdf" onchange="window.igFileChange(this)">
       </div>
       <div class="form-group">
         <label>Additional Notes</label>
@@ -301,7 +312,7 @@ input.err,select.err{border-color:#ef4444!important;}
         <div class="progress-label" id="progress-label"></div>
       </div>
       <div id="status-msg"></div>
-      <button type="button" class="submit-btn" id="btn-submit" onclick="igSubmit()">Submit Payment Confirmation</button>
+      <button type="button" class="submit-btn" id="btn-submit" onclick="window.igSubmit()">Submit Payment Confirmation</button>
       <p class="terms-note">By submitting you confirm your payment and accept InstaGo's Terms and Conditions.</p>
     </div>
   </div>
@@ -314,25 +325,10 @@ input.err,select.err{border-color:#ef4444!important;}
   <p style="font-size:13px;color:#ca6ce5;font-style:italic;margin-top:-6px;margin-bottom:14px;">Every great adventure begins with a single step, you just took yours.</p>
   <div class="success-contact">
     Questions? Reach us at<br>
-    <a href="mailto:info@instagoedtravels.com">info@instagoedtravels.com</a><br>
+    <a href="/cdn-cgi/l/email-protection#b8d1d6ded7f8d1d6cbccd9dfd7dddccccad9ceddd4cb96dbd7d5"><span class="__cf_email__" data-cfemail="0a63646c654a6364797e6b6d656f6e7e786b7c6f667924696567">[email&#160;protected]</span></a><br>
     +372 53539474
   </div>
 </div>
 <div class="footer">
   <div class="footer-brand">Insta<span>Go</span></div>
-  <p>instagoedtravels.com &middot; info@instagoedtravels.com &middot; +372 53539474<br>Kadaka Tee 137, Tallinn, Estonia</p>
-</div>
-</div>
-<script>
-var IG_URL='https://script.google.com/macros/s/AKfycbxf2KhMbZgn_0j89LAhvYodSqTJaFr7PqZFNyns_ubkw4FLsZ2-_2pzs4dYhEL7PHXI/exec';
-function igCopy(btn,text,label){var ok=function(){btn.textContent='Copied!';btn.style.background='#10b981';setTimeout(function(){btn.textContent=label;btn.style.background='#004aad';},2500);};if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(text).then(ok).catch(function(){igFb(text,ok);});}else{igFb(text,ok);}}
-function igFb(text,ok){var t=document.createElement('textarea');t.value=text;t.style.cssText='position:fixed;left:-9999px;opacity:0;';document.body.appendChild(t);t.focus();t.select();try{document.execCommand('copy')?ok():alert('Copy:\n'+text);}catch(e){alert('Copy:\n'+text);}document.body.removeChild(t);}
-function igFileChange(inp){if(inp.files&&inp.files[0]){if(inp.files[0].size>8*1024*1024){document.getElementById('file-label').textContent='File too large - max 8MB';document.getElementById('file-label').style.color='#dc2626';inp.value='';return;}document.getElementById('file-label').textContent='\u2713 '+inp.files[0].name;document.getElementById('file-label').style.cssText='color:#004aad;font-weight:700;margin:0;';document.getElementById('file-wrap').style.borderColor='#004aad';document.getElementById('file-wrap').classList.remove('err');}}
-function igMsg(msg,type){var el=document.getElementById('status-msg');el.innerHTML=msg;var b='display:block;padding:11px 14px;border-radius:9px;font-size:13px;font-weight:600;margin-bottom:10px;text-align:center;line-height:1.5;';if(type==='error')el.style.cssText=b+'background:#fef2f2;color:#dc2626;border:1px solid #fca5a5;';if(type==='loading')el.style.cssText=b+'background:#eff6ff;color:#1d4ed8;border:1px solid #93c5fd;';}
-function igProg(pct,label){document.getElementById('progress-wrap').style.display='block';document.getElementById('progress-fill').style.width=pct+'%';document.getElementById('progress-label').textContent=label||'';}
-function igDone(){document.getElementById('main-content').style.display='none';document.getElementById('success-screen').style.display='block';window.scrollTo({top:0,behavior:'smooth'});}
-function igPost(data,cb){var x=new XMLHttpRequest();x.open('POST',IG_URL,true);x.setRequestHeader('Content-Type','text/plain');x.onreadystatechange=function(){if(x.readyState!==4)return;var r=null;try{r=JSON.parse(x.responseText).row;}catch(e){}cb(r);};x.onerror=function(){cb(null);};x.send(JSON.stringify(data));}
-function igSubmit(){var btn=document.getElementById('btn-submit');['f-name','f-email','f-phone','f-service','f-method','f-date'].forEach(function(id){document.getElementById(id).classList.remove('err');});document.getElementById('file-wrap').classList.remove('err');document.getElementById('amount-wrap').classList.remove('err');document.getElementById('status-msg').style.display='none';var name=document.getElementById('f-name').value.trim();var email=document.getElementById('f-email').value.trim();var phone=document.getElementById('f-phone').value.trim();var service=document.getElementById('f-service').value;var amtNum=document.getElementById('f-amount-num').value.trim();var currency=document.getElementById('f-currency').value;var method=document.getElementById('f-method').value;var date=document.getElementById('f-date').value;var receipt=document.getElementById('f-receipt').files[0];var amount=amtNum?currency+' '+amtNum:'';var bad=[];if(!name){bad.push('Full Name');document.getElementById('f-name').classList.add('err');}if(!email){bad.push('Email');document.getElementById('f-email').classList.add('err');}if(!phone){bad.push('Phone');document.getElementById('f-phone').classList.add('err');}if(!service){bad.push('Service Type');document.getElementById('f-service').classList.add('err');}if(!amtNum){bad.push('Amount Paid');document.getElementById('amount-wrap').classList.add('err');}if(!method){bad.push('Payment Method');document.getElementById('f-method').classList.add('err');}if(!date){bad.push('Payment Date');document.getElementById('f-date').classList.add('err');}if(!receipt){bad.push('Receipt');document.getElementById('file-wrap').classList.add('err');}if(bad.length){igMsg('Please complete: '+bad.join(', '),'error');return;}btn.disabled=true;btn.textContent='Please wait...';igProg(10,'Adding your info to our database...');igPost({type:'form',submittedAt:new Date().toLocaleString('en-GB'),name:name,email:email,phone:phone,invoice:document.getElementById('f-invoice').value.trim(),service:service,amount:amount,method:method,date:date,notes:document.getElementById('f-notes').value.trim()},function(rowNum){igProg(55,'Uploading your receipt...');var reader=new FileReader();reader.onload=function(evt){igPost({type:'file',row:rowNum,fileName:receipt.name,fileType:receipt.type,fileData:evt.target.result.split(',')[1]},function(){igProg(100,'Done!');setTimeout(function(){igDone();},600);});};reader.onerror=function(){igDone();};reader.readAsDataURL(receipt);});}
-</script>
-</body>
-</html>
+  <p>in
